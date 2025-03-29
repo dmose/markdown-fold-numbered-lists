@@ -9,61 +9,49 @@ export function activate(context: vscode.ExtensionContext) {
 
 class MarkdownFoldingProvider implements vscode.FoldingRangeProvider {
     provideFoldingRanges(
-        document: vscode.TextDocument,
-        context: vscode.FoldingContext,
-        token: vscode.CancellationToken
+        document: vscode.TextDocument
     ): vscode.FoldingRange[] {
-        const foldingRanges: vscode.FoldingRange[] = [];
         const text = document.getText();
         const lines = text.split('\n');
+        const foldingRanges: vscode.FoldingRange[] = [];
 
-        let currentListStart: number | null = null;
-        let currentIndentLevel = 0;
-
+        // Process each line
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
             const trimmedLine = line.trimStart();
+            const indentLevel = line.length - trimmedLine.length;
             
             // Check if this is a numbered list item
             const listMatch = trimmedLine.match(/^\d+\.\s/);
+            
             if (listMatch) {
-                const indentLevel = line.length - trimmedLine.length;
+                // Find the end of this list item's content
+                let j = i;
                 
-                // If we're starting a new list or a sublist
-                if (currentListStart === null || indentLevel > currentIndentLevel) {
-                    if (currentListStart !== null) {
-                        // Close the previous list
-                        foldingRanges.push(new vscode.FoldingRange(
-                            currentListStart,
-                            i - 1,
-                            vscode.FoldingRangeKind.Region
-                        ));
+                while (j + 1 < lines.length) {
+                    const nextLine = lines[j + 1];
+                    const nextTrimmed = nextLine.trimStart();
+                    const nextIndent = nextLine.length - nextTrimmed.length;
+                    
+                    // If we find a line with less indentation, or an empty line, break
+                    if (nextTrimmed === '' || nextIndent < indentLevel) {
+                        break;
                     }
-                    currentListStart = i;
-                    currentIndentLevel = indentLevel;
+                    // If we find a line with same indentation and it's a list item, break
+                    if (nextIndent === indentLevel && nextTrimmed.match(/^\d+\.\s/)) {
+                        break;
+                    }
+                    j++;
                 }
-            } else if (currentListStart !== null) {
-                // If we hit a non-numbered line or a line with less indentation
-                const indentLevel = line.length - trimmedLine.length;
-                if (trimmedLine === '' || indentLevel < currentIndentLevel) {
-                    foldingRanges.push(new vscode.FoldingRange(
-                        currentListStart,
-                        i - 1,
-                        vscode.FoldingRangeKind.Region
-                    ));
-                    currentListStart = null;
-                    currentIndentLevel = 0;
-                }
-            }
-        }
 
-        // Handle the last list if it exists
-        if (currentListStart !== null) {
-            foldingRanges.push(new vscode.FoldingRange(
-                currentListStart,
-                lines.length - 1,
-                vscode.FoldingRangeKind.Region
-            ));
+                // Create a folding range for this item
+                const range = new vscode.FoldingRange(
+                    i,
+                    j,
+                    vscode.FoldingRangeKind.Region
+                );
+                foldingRanges.push(range);
+            }
         }
 
         return foldingRanges;
