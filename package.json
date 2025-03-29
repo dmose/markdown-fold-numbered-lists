@@ -8,6 +8,7 @@
     "url": "https://github.com/dmose/markdown-fold-numbered-lists.git"
   },
   "engines": {
+    "node": ">=22.14.0",
     "vscode": "^1.85.0"
   },
   "categories": [
@@ -39,9 +40,9 @@
   },
   "devDependencies": {
     "@types/vscode": "^1.85.0",
-    "@types/node": "18.x",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3"
   }
