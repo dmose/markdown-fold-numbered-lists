@@ -38,6 +38,7 @@ Thumbs.db
 
 # Testing
 coverage/
+.vscode-test/
 
 # Temporary files
 *.swp
