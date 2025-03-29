@@ -22,7 +22,7 @@ class MarkdownFoldingProvider implements vscode.FoldingRangeProvider {
 
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
-            const trimmedLine = line.trimLeft();
+            const trimmedLine = line.trimStart();
             
             // Check if this is a numbered list item
             const listMatch = trimmedLine.match(/^\d+\.\s/);
