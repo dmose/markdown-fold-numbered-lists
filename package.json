@@ -3,6 +3,10 @@
   "displayName": "Markdown Fold Numbered Lists",
   "description": "Makes ordered lists in markdown files foldable",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmose/markdown-fold-numbered-lists.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
