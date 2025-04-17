@@ -7,7 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 }
 
-class MarkdownFoldingProvider implements vscode.FoldingRangeProvider {
+export class MarkdownFoldingProvider implements vscode.FoldingRangeProvider {
     provideFoldingRanges(
         document: vscode.TextDocument
     ): vscode.FoldingRange[] {
