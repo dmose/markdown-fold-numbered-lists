@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Code Style Guidelines
 - Use TypeScript strict mode with explicit types
 - Prefer ES2022 features and syntax
-- Indentation: Use 4 spaces (based on existing code)
+- Indentation: Use 2 spaces
 - Use named exports (`export function`) 
 - Group imports at top, starting with external modules
 - Use PascalCase for classes, camelCase for variables/functions

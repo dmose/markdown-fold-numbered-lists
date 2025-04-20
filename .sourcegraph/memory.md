@@ -11,7 +11,7 @@
 ## Code Style Guidelines
 - TypeScript: Strict mode with explicit types
 - Syntax: Prefer ES2022 features
-- Formatting: 4 spaces indentation
+- Formatting: 2 spaces indentation
 - Exports: Use named exports (`export function`)
 - Imports: Group at top, external modules first
 - Naming: PascalCase for classes, camelCase for variables/functions
